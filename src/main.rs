@@ -27,14 +27,14 @@ fn produce(data : &Vec<(String, String, Vec<String>)>) {
     let mut tmp = &data[0];
     print!("{} {}", tmp.0, tmp.1);
     loop {
-        let mut tuple = (tmp.0.clone(), tmp.1.clone());
+        let mut first = &tmp.0;
+        let mut second = &tmp.1;
         let mut word = rand::thread_rng().choose(&tmp.2)
-                                         .unwrap()
-                                         .clone();
+                                         .unwrap();
         print!(" {}", word);
-        tuple.0 = tuple.1;
-        tuple.1 = word;
-        match data.iter().find(|x| x.0 == tuple.0 && x.1 == tuple.1) {
+        first = second;
+        second = word;
+        match data.iter().find(|x| &x.0 == first && &x.1 == second) {
             Some(x) => tmp = x,
             None => break
         }
